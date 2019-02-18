@@ -1,4 +1,4 @@
 mvn package
 
 
-mvn tomcat7:run
+mvn jetty:run
