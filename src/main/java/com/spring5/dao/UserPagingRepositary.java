@@ -23,14 +23,14 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 @Repository
 public interface UserPagingRepositary extends PagingAndSortingRepository<User, Long> {
 
-//    @Query("select p from Person p where p.name like ?1 order by name")
-//    List<User> findByName(String name);
-//
-//    @Query("select p from Person p where p.id = ?1")
-//    User findOne(Long id);
-//
-//    //@Query("select p from Person")
-//    List<User> findPageAll(Pageable pageable);
-//
-//    List<User> findAllByName(String name, Pageable pageable);
+    @Query("select p from Person p where p.name like ?1 order by name")
+    List<User> findByName(String name);
+
+    @Query("select p from Person p where p.id = ?1")
+    User findOne(Long id);
+
+    @Query("select p from Person")
+    List<User> findAll();
+
+    List<User> findAllByName(String name, Pageable pageable);
 }

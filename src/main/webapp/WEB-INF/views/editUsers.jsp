@@ -59,5 +59,14 @@
                 </tr>
             </c:forEach>
         </table>
+
+        <form:form action="listUsers" method="get">
+            <table>
+                <tr>
+                    <td><button type="submit">List Users</button></td>
+                </tr>
+            </table>
+        </form:form>
+
     </body>
 </html>

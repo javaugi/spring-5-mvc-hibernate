@@ -16,11 +16,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.spring5.model.User;
 import com.spring5.service.UserService;
+import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import javax.servlet.http.HttpServletRequest;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.ServletRequestUtils;
 
 // http://learningprogramming.net/java/spring-mvc/pagination-with-spring-data-jpa-in-spring-mvc/
 // https://examples.javacodegeeks.com/enterprise-java/spring/mvc/spring-mvc-pagination-example/
@@ -30,11 +35,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-//    @Autowired
-//    private UserPagingRepositary userPagingRepo;
-//
-//    @Autowired
-//    private UserCrudRepository userCrudRepo;
+    @Autowired(required = false)
+    private UserPagingRepositary userPagingRepositary;
+
+    @Autowired(required = false)
+    private UserCrudRepository userCrudRepository;
+
     @GetMapping("/")
     public String userForm(Locale locale, Model model) {
         model.addAttribute("users", userService.list());
@@ -57,40 +63,71 @@ public class UserController {
         userService.save(user);
         return "redirect:/";
     }
-//
-//    @GetMapping("/listUsers")
-//    public String listUsers(Locale locale, Model model) {
-//        long count = userPagingRepo.count();
-//        int pageSize = 5;
-//        long pages = count / pageSize;
-//        for (int i = 0; i < pages; i++) {
-//            System.out.printf("page num: %s%n", i);
-//            List<User> list = userPagingRepo.findPageAll(PageRequest.of(i, pageSize));
-//            list.forEach(System.out::println);
-//        }
-//
-//        model.addAttribute("users", userService.listUsers());
-//        return "redirect:/listUsers";
-//    }
-//
-//    private List<User> createUsers() {
-//
-//        List<User> returnValue = new ArrayList();
-//        User user = null;
-//        Random rand = new Random();
-//        for (int i = 0; i < 100; i++) {
-//            user = new User();
-//            user.setName(F_N_LIST.get(rand.nextInt(F_N_LIST.size()))
-//                    + " " + L_N_List.get(rand.nextInt(L_N_List.size())));
-//            user.setEmail(E_LIST.get(rand.nextInt(E_LIST.size())));
-//
-//            returnValue.add(user);
-//        }
-//
-//        userPagingRepo.saveAll(returnValue);
-//        //userCrudRepo.saveAll(returnValue);
-//        return returnValue;
-//    }
+
+    @GetMapping("/listUsers")
+    public String listUsers(Locale locale, Model model, HttpServletRequest request, ModelMap modelMap) {
+        System.out.println("listUsers");
+        List<User> users = createUsers();
+
+        //List<User> users = userService.listUsers(); //userPagingRepositary.findAll();
+        PagedListHolder pagedListHolder = new PagedListHolder(users);
+        long count = users.size();
+        int pageSize = 5;
+        long pages = count / pageSize;
+        System.out.println("total " + count + "-pages=" + pages);
+        int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+        pagedListHolder.setPage(page);
+        pagedListHolder.setPageSize(3);
+        modelMap.put("pagedListHolder", pagedListHolder);
+        //model.addAttribute("users", userService.listUsers());
+        return "listUsers";
+    }
+
+    private List<User> createUsers() {
+
+        List<User> returnValue = new ArrayList();
+        User user = null;
+        Random rand = new Random();
+        for (int i = 0; i < 100; i++) {
+            user = new User();
+            user.setName(F_N_LIST.get(rand.nextInt(F_N_LIST.size()))
+                    + " " + L_N_LIST.get(rand.nextInt(L_N_LIST.size())));
+            user.setEmail(getAlphaNumericString(5) + E_LIST.get(rand.nextInt(E_LIST.size())));
+
+            userService.save(user);
+            returnValue.add(user);
+        }
+
+        //userPagingRepositary.saveAll(returnValue);
+        //userCrudRepo.saveAll(returnValue);
+        return returnValue;
+    }
+
+    static String getAlphaNumericString(int n) {
+
+        // chose a Character random from this String
+        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "0123456789"
+                + "abcdefghijklmnopqrstuvxyz";
+
+        // create StringBuffer size of AlphaNumericString
+        StringBuilder sb = new StringBuilder(n);
+
+        for (int i = 0; i < n; i++) {
+
+            // generate a random number between
+            // 0 to AlphaNumericString variable length
+            int index
+                    = (int) (AlphaNumericString.length()
+                    * Math.random());
+
+            // add Character one by one in end of sb
+            sb.append(AlphaNumericString
+                    .charAt(index));
+        }
+
+        return sb.toString();
+    }
 
     static final String[] FIRST_NAMES = {"Alex", "Arby", "Allen", "Abbey", "Ashley", "Ben", "Bill", "Carol", "Dan", "Don", "Doug", "Ernie", "Gary", "Jax", "Jon", "Jeff", "Jessica", "Kevin", "Shannon"};
     static final String[] LAST_NAMES = {"Alton", "Aleon", "Atux", "Lee", "Swift", "Liu", "Alexon", "Alatian", "Smith", "Smita", "Will", "Wall", "Zina"};
@@ -99,6 +136,6 @@ public class UserController {
         "Dan@ciminc.com", "Don@ciminc.com", "Doug@ciminc.com", "Ernie@ciminc.com", "Gary@ciminc.com", "Jax@ciminc.com", "Jon@ciminc.com",
         "Jeff@ciminc.com", "Jessica@ciminc.com", "Kevin@ciminc.com", "Shannon@ciminc.com"};
     static final List<String> F_N_LIST = Arrays.asList(FIRST_NAMES);
-    static final List<String> L_N_List = Arrays.asList(LAST_NAMES);
+    static final List<String> L_N_LIST = Arrays.asList(LAST_NAMES);
     static final List<String> E_LIST = Arrays.asList(EMAILS);
 }
