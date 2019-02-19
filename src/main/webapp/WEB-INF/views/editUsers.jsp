@@ -68,5 +68,13 @@
             </table>
         </form:form>
 
+
+        <form:form action="listProducts" method="get">
+            <table>
+                <tr>
+                    <td><button type="submit">List Products</button></td>
+                </tr>
+            </table>
+        </form:form>
     </body>
 </html>

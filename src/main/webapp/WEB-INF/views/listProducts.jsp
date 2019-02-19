@@ -44,21 +44,5 @@
                        pagedLink="${pagedLink}" />
         </div>
 
-
-
-        <!--
-        <table>
-            <tr>
-                <td><strong>Name</strong></td>
-                <td><strong>Email</strong></td>
-            </tr>
-        <c:forEach items="${users}" var="user">
-            <tr>
-                <td>${user.name}</td>
-                <td>${user.email}</td>
-            </tr>
-        </c:forEach>
-    </table>
-        -->
     </body>
 </html>

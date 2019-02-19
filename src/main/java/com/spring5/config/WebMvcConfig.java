@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -14,7 +15,8 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.spring5"})
+@ComponentScan(basePackages = {"com.spring5", "com.spring5.controller", "com.spring5.dao", "com.spring5.model", "com.spring5.service"})
+@EnableJpaRepositories("com.spring5.dao")
 public class WebMvcConfig implements WebMvcConfigurer {
 
     @Bean

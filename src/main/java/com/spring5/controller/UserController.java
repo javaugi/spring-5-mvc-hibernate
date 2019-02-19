@@ -16,14 +16,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.spring5.model.User;
 import com.spring5.service.UserService;
-import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.support.PagedListHolder;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.ServletRequestUtils;
 
