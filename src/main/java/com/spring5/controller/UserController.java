@@ -1,7 +1,5 @@
 package com.spring5.controller;
 
-import com.spring5.dao.UserCrudRepository;
-import com.spring5.dao.UserPagingRepositary;
 import java.util.Locale;
 
 import javax.validation.Valid;
@@ -33,12 +31,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired(required = false)
-    private UserPagingRepositary userPagingRepositary;
-
-    @Autowired(required = false)
-    private UserCrudRepository userCrudRepository;
-
+//    @Autowired(required = false)
+//    private UserPagingRepositary userPagingRepositary;
+//
+//    @Autowired(required = false)
+//    private UserCrudRepository userCrudRepository;
     @GetMapping("/")
     public String userForm(Locale locale, Model model) {
         model.addAttribute("users", userService.list());

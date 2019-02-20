@@ -8,6 +8,7 @@
 package com.spring5.service;
 
 import com.spring5.model.Product;
+import java.util.List;
 
 /**
  *
@@ -19,7 +20,7 @@ public interface ProductService {
 
     void save(Product product);
 
-    void saveAll(Iterable<Product> products);
+    void saveAll(List<Product> products);
 
     Iterable<Product> findAll();
 

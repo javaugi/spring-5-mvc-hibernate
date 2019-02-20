@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -23,12 +22,13 @@ import javax.persistence.Table;
  * $LastChangedBy
  */
 @Entity
-@Table(name = "product")
+@Table(name = "TBL_PRODUCTS")
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue
+    @Column(name = "USER_ID")
+    private long id;
 
     @Column
     private String name;
@@ -45,11 +45,11 @@ public class Product {
     @Column
     private boolean status;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

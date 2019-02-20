@@ -7,12 +7,10 @@
  */
 package com.spring5.service;
 
-import com.spring5.dao.ProductRepository;
+import com.spring5.dao.ProductDao;
 import com.spring5.model.Product;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,29 +21,26 @@ import org.springframework.transaction.annotation.Transactional;
  * @version $LastChangedRevision $LastChangedDate Last Modified Author:
  * $LastChangedBy
  */
-@Service("productService")
+@Transactional
+@Service
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
-    @Qualifier("productRepository")
-    private ProductRepository productRepository;
+    private ProductDao productDao;
 
-    @Transactional
     @Override
     public void save(Product product) {
-        productRepository.save(product);
+        productDao.save(product);
     }
 
-    @Transactional
     @Override
-    public void saveAll(Iterable<Product> products) {
-        productRepository.saveAll(products);
+    public void saveAll(List<Product> products) {
+        productDao.saveAll(products);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public Iterable<Product> findAll() {
-        return productRepository.findAll();
+        return productDao.list();
     }
 
 }
