@@ -16,17 +16,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
@@ -38,9 +38,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class ProductController {
 
+    private static final Logger LOG = LoggerFactory.getLogger(ProductController.class);
+
     @Autowired
     private ProductService productService;
 
+    List<Product> products;
+
+    @PostConstruct
+    public void init() {
+        createProducts();
+        Iterable<Product> productIterable = productService.findAll();
+        products = FluentIterable.from(productIterable).toList();
+    }
+
+    /*
     @RequestMapping(method = RequestMethod.GET)
     public String index(HttpServletRequest request, ModelMap modelMap) {
         List<Product> products = (List<Product>) productService.findAll();
@@ -51,14 +63,10 @@ public class ProductController {
         modelMap.put("pagedListHolder", pagedListHolder);
         return "product/index";
     }
-
+    // */
     @GetMapping("/listProducts")
     public String listUsers(Locale locale, Model model, HttpServletRequest request, ModelMap modelMap) {
-        System.out.println("listProducts");
-        createProducts();
-        Iterable<Product> productIterable = productService.findAll();
-        List<Product> products = FluentIterable.from(productIterable).toList();
-
+        LOG.info("listProducts");
         //List<User> users = userService.listUsers(); //userPagingRepositary.findAll();
         PagedListHolder pagedListHolder = new PagedListHolder(products);
         long count = products.size();
@@ -66,6 +74,20 @@ public class ProductController {
         long pages = count / pageSize;
         System.out.println("total " + count + "-pages=" + pages);
         int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+        pagedListHolder.setPage(page);
+        pagedListHolder.setPageSize(3);
+        modelMap.put("pagedListHolder", pagedListHolder);
+        //model.addAttribute("users", userService.listUsers());
+        return "listProducts";
+    }
+
+    @GetMapping("/pagedProducts")
+    public String getPagedProducts(Locale locale, Model model, HttpServletRequest request, ModelMap modelMap) {
+        LOG.info("pagedProducts");
+        int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+        //List<User> users = userService.listUsers(); //userPagingRepositary.findAll();
+        PagedListHolder pagedListHolder = new PagedListHolder(products);
+
         pagedListHolder.setPage(page);
         pagedListHolder.setPageSize(3);
         modelMap.put("pagedListHolder", pagedListHolder);

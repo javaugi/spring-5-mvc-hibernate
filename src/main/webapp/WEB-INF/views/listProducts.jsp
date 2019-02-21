@@ -16,7 +16,7 @@
         <div class="container" style="margin-top: 20px;">
             <jsp:useBean id="pagedListHolder" scope="request"
                          type="org.springframework.beans.support.PagedListHolder" />
-            <c:url value="/product" var="pagedLink">
+            <c:url value="/listProducts" var="pagedLink">
                 <c:param name="p" value="~" />
             </c:url>
 

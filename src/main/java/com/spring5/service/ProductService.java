@@ -24,4 +24,5 @@ public interface ProductService {
 
     Iterable<Product> findAll();
 
+    Iterable<Product> findAll(int offset, int limit);
 }

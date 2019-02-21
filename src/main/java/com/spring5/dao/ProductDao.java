@@ -10,4 +10,6 @@ public interface ProductDao {
     void saveAll(List<Product> products);
 
     List<Product> list();
+
+    List<Product> list(int offset, int limit);
 }

@@ -34,4 +34,12 @@ public class ProductDaoImp implements ProductDao {
         return query.getResultList();
     }
 
+    @Override
+    public List<Product> list(int offset, int limit) {
+        @SuppressWarnings("unchecked")
+        TypedQuery<Product> query = sessionFactory.getCurrentSession().createQuery("from Product");
+        query.setFirstResult(offset);
+        query.setMaxResults(limit);
+        return query.getResultList();
+    }
 }

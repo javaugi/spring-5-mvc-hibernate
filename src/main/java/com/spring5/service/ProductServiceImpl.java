@@ -43,4 +43,8 @@ public class ProductServiceImpl implements ProductService {
         return productDao.list();
     }
 
+    @Override
+    public Iterable<Product> findAll(int offset, int limit) {
+        return productDao.list(offset, limit);
+    }
 }
