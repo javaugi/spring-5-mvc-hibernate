@@ -12,12 +12,16 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.spring5.model.Product;
 import com.spring5.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Configuration
 @EnableTransactionManagement
 @ComponentScans(value = {
     @ComponentScan("com.spring5")})
 public class HibernateConfig {
+
+    private static final Logger LOG = LoggerFactory.getLogger(HibernateConfig.class);
 
     @Autowired
     private ApplicationContext context;
@@ -28,6 +32,11 @@ public class HibernateConfig {
         factoryBean.setConfigLocation(context.getResource("classpath:hibernate.cfg.xml"));
         Class<?>[] annonClasses = {Product.class, User.class};
         factoryBean.setAnnotatedClasses(annonClasses);
+
+        for (String bean : context.getBeanDefinitionNames()) {
+            LOG.error("BEAN: {}", bean);
+        }
+
         return factoryBean;
     }
 
