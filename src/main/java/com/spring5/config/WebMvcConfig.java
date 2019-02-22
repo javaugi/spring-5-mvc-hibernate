@@ -1,5 +1,7 @@
 package com.spring5.config;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -13,11 +15,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+@SpringBootApplication
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.spring5", "com.spring5.controller", "com.spring5.dao", "com.spring5.model", "com.spring5.service"})
-@EnableJpaRepositories("com.spring5.dao")
+@EnableJpaRepositories(basePackages = "com.spring5.repos")
 public class WebMvcConfig implements WebMvcConfigurer {
+
+    public static void main(String[] args) {
+        SpringApplication.run(WebMvcConfig.class, args);
+    }
 
     @Bean
     public InternalResourceViewResolver resolver() {

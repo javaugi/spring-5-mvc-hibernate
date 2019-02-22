@@ -25,6 +25,8 @@ import org.springframework.web.bind.ServletRequestUtils;
 
 // http://learningprogramming.net/java/spring-mvc/pagination-with-spring-data-jpa-in-spring-mvc/
 // https://examples.javacodegeeks.com/enterprise-java/spring/mvc/spring-mvc-pagination-example/
+// https://examples.javacodegeeks.com/enterprise-java/spring/data/spring-data-jparepository-example/
+//
 @Controller
 public class UserController {
 
