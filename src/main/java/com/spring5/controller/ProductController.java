@@ -23,7 +23,6 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
@@ -111,6 +110,7 @@ public class ProductController {
                     .filter(line -> line.getName().contains(searchParam) || line.getDescription().contains(searchParam))
                     .collect(Collectors.toList());
         }
+        LOG.error("queryString {}", request.getQueryString());
 
         PagedListHolder pagedListHolder = new PagedListHolder(products);
         int page = ServletRequestUtils.getIntParameter(request, "p", 0);
