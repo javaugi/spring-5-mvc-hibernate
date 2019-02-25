@@ -34,12 +34,6 @@ public class HibernateConfig {
         factoryBean.setConfigLocation(context.getResource("classpath:hibernate.cfg.xml"));
         Class<?>[] annonClasses = {Product.class, User.class, Contact.class, ContactNote.class};
         factoryBean.setAnnotatedClasses(annonClasses);
-
-        /*
-        for (String bean : context.getBeanDefinitionNames()) {
-            LOG.error("BEAN: {}", bean);
-        }
-        // */
         return factoryBean;
     }
 
