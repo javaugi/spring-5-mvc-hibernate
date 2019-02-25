@@ -1,4 +1,4 @@
-package com.spring5.config;
+package com.spring5;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;

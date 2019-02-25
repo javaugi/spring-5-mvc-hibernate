@@ -1,4 +1,4 @@
-package com.spring5.config;
+package com.spring5;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,8 +18,8 @@ import org.springframework.web.servlet.view.JstlView;
 @SpringBootApplication
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.spring5", "com.spring5.controller", "com.spring5.dao", "com.spring5.model", "com.spring5.service"})
-@EnableJpaRepositories(basePackages = "com.spring5.repos")
+@ComponentScan(basePackages = {"com.spring5"})
+@EnableJpaRepositories(basePackages = "com.spring5")
 public class WebMvcConfig implements WebMvcConfigurer {
 
     public static void main(String[] args) {
