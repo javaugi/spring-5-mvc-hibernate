@@ -1,5 +1,7 @@
 package com.spring5;
 
+import com.spring5.model.Contact;
+import com.spring5.model.ContactNote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -30,13 +32,14 @@ public class HibernateConfig {
     public LocalSessionFactoryBean getSessionFactory() {
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
         factoryBean.setConfigLocation(context.getResource("classpath:hibernate.cfg.xml"));
-        Class<?>[] annonClasses = {Product.class, User.class};
+        Class<?>[] annonClasses = {Product.class, User.class, Contact.class, ContactNote.class};
         factoryBean.setAnnotatedClasses(annonClasses);
 
+        /*
         for (String bean : context.getBeanDefinitionNames()) {
             LOG.error("BEAN: {}", bean);
         }
-
+        // */
         return factoryBean;
     }
 

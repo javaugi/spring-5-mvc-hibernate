@@ -16,7 +16,7 @@
         <div class="container" style="margin-top: 20px;">
             <jsp:useBean id="pagedListHolder" scope="request"
                          type="org.springframework.beans.support.PagedListHolder" />
-            <c:url value="/product" var="pagedLink">
+            <c:url value="/listUsers" var="pagedLink">
                 <c:param name="p" value="~" />
             </c:url>
 
@@ -26,17 +26,13 @@
                 <tr>
                     <th width="20px">Id</th>
                     <th>Name</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Status</th>
+                    <th>Email</th>
                 </tr>
                 <c:forEach items="${pagedListHolder.pageList}" var="item">
                     <tr>
                         <td>${item.id}</td>
                         <td>${item.name}</td>
-                        <td>${item.price}</td>
-                        <td>${item.quantity}</td>
-                        <td>${item.status }</td>
+                        <td>${item.email}</td>
                     </tr>
                 </c:forEach>
             </table>
@@ -44,21 +40,5 @@
                        pagedLink="${pagedLink}" />
         </div>
 
-
-
-        <!--
-        <table>
-            <tr>
-                <td><strong>Name</strong></td>
-                <td><strong>Email</strong></td>
-            </tr>
-        <c:forEach items="${users}" var="user">
-            <tr>
-                <td>${user.name}</td>
-                <td>${user.email}</td>
-            </tr>
-        </c:forEach>
-    </table>
-        -->
     </body>
 </html>
