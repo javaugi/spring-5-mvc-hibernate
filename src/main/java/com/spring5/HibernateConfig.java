@@ -14,23 +14,15 @@ import com.spring5.model.Product;
 import com.spring5.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.spring5")
 public class HibernateConfig {
-    //might be renaed as MyApplication. the main method call to match @SpringBootApplication
     // the @EnableTransactionManagement to match @EnableJpaRepositories
 
     private static final Logger LOG = LoggerFactory.getLogger(HibernateConfig.class);
-
-    public static void main(String[] args) {
-        SpringApplication.run(HibernateConfig.class, args);
-    }
 
     @Autowired
     private ApplicationContext context;
