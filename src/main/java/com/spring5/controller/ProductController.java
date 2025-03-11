@@ -7,7 +7,7 @@
  */
 package com.spring5.controller;
 
-import com.google.common.collect.FluentIterable;
+//import com.google.common.collect.FluentIterable;
 import com.spring5.model.DisplayCriteria;
 import com.spring5.service.ProductService;
 import com.spring5.model.Product;
@@ -19,8 +19,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
-import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,11 +63,17 @@ public class ProductController {
     public void init() {
         createProducts();
         Iterable<Product> productIterable = productService.findAll();
-        allProducts = FluentIterable.from(productIterable).toList();
+        allProducts = iterableToList(productIterable);
         totalRecords = allProducts.size();
         long pages = totalRecords / pageSize;
         LOG.info("products total {} pages total {} with page size {}", totalRecords, pages, pageSize);
     }
+    
+    public static <T> List<T> iterableToList(Iterable<T> iterable) {
+        List<T> list = new ArrayList<>();
+        iterable.forEach(list::add);
+        return list;
+    }    
 
     /*
     @RequestMapping(method = RequestMethod.GET)

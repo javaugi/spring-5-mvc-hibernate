@@ -7,12 +7,12 @@
     <artifactId>spring-5-mvc-hibernate</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>Spring 5 MVC Hibernate</name>
+    <name>spring-5-mvc-hibernate</name>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.1.RELEASE</version>
+        <version>3.4.3</version>
         <relativePath />
         <!--  lookup parent from repository  -->
     </parent>
@@ -69,13 +69,15 @@
         <!-- Hibernate ORM -->
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
+            <artifactId>hibernate-core-jakarta</artifactId> 
+            <version>5.6.15.Final</version>
         </dependency>
 
         <!-- Hibernate-C3P0 Integration -->
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-c3p0</artifactId>
+            <artifactId>hibernate-c3p0</artifactId> 
+            <version>5.4.17.Final</version>
         </dependency>
 
         <dependency>
@@ -137,7 +139,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>${hibernate.validator}</version>
+            <version>8.0.2.Final</version>
         </dependency>
 
         <!-- JSTL Dependency -->
@@ -156,7 +158,8 @@
         <!-- Servlet Dependency -->
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <artifactId>javax.servlet-api</artifactId> 
+            <version>4.0.1</version>
         </dependency>
 
         <!-- JSP Dependency -->
@@ -186,7 +189,8 @@
         </dependency>
         <dependency>
             <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <artifactId>mysql-connector-java</artifactId> 
+            <version>8.0.20</version>
             <scope>runtime</scope>
         </dependency>
 
@@ -218,7 +222,8 @@
         </dependency>
         <dependency>
             <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
+            <artifactId>jaxb-api</artifactId> 
+            <version>2.3.1</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
