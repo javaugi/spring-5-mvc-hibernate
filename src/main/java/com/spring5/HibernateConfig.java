@@ -51,7 +51,7 @@ public class HibernateConfig {
     }
 
     
-
+    /*
     @Bean
     public DataSource dataSource() {
         return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.HSQL).build();
@@ -74,5 +74,6 @@ public class HibernateConfig {
         bean.setJpaVendorAdapter(jpaVendorAdapter);
         bean.setPackagesToScan("com.spring5");
         return bean;
-    }    
+    }
+    // */
 }
